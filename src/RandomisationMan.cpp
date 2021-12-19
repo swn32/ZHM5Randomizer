@@ -11,6 +11,8 @@
 #include "DefaultPoolExport.h"
 #endif
 
+#include "CustomItemSelection.h"
+
 std::unique_ptr<Randomizer> RandomisationMan::world_inventory_randomizer = nullptr;
 std::unique_ptr<Randomizer> RandomisationMan::npc_item_randomizer = nullptr;
 std::unique_ptr<Randomizer> RandomisationMan::hero_inventory_randomizer = nullptr;
@@ -36,11 +38,13 @@ std::unordered_map<std::string, RandomisationStrategy* (*)()> npcRandomizers{
 
 std::unordered_map<std::string, RandomisationStrategy* (*)()> heroRandomizers{
     { "NONE", &createInstance<IdentityRandomisation> },
+    { "CUSTOM", &createInstance<CustomItemSelection> },
     { "DEFAULT", &createInstance<HeroInventoryRandomisation> },
 };
 
 std::unordered_map<std::string, RandomisationStrategy* (*)()> stashRandomizers{
     { "NONE", &createInstance<IdentityRandomisation> },
+    { "CUSTOM", &createInstance<CustomStashItemSelection> },
     { "DEFAULT", &createInstance<StashInventoryRandomisation> },
 };
 
